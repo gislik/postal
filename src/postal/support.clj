@@ -57,6 +57,21 @@
            epoch (.getTime (java.util.Date.))]
        (format "<%s.%s@%s>" onlychars epoch host))))
 
+(defn hostname []
+  (.getHostName (java.net.InetAddress/getLocalHost)))
+
+(defn message-id
+  ([]
+     (message-id (format "postal.%s" (hostname))))
+  ([host]
+     (let [bs (byte-array 16)
+           r (Random.)
+           _ (.nextBytes r bs)
+           rs (String. (Base64/encodeBase64 bs))
+           onlychars (apply str (re-seq #"[0-9A-Za-z]" rs))
+           epoch (.getTime (java.util.Date.))]
+       (format "<%s.%s@%s>" onlychars epoch host))))
+
 (defn pom-version []
   (let [pom "META-INF/maven/com.draines/postal/pom.properties"
         props (doto (Properties.)
