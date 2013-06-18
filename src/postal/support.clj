@@ -31,14 +31,16 @@
   `(when ~condition
      (doto ~arg ~@body)))
 
-(defn make-props [sender {:keys [host port user tls]}]
+(defn make-props [sender {:keys [host port user tls ctimeout timeout]}]
   (doto (Properties.)
     (.put "mail.smtp.host" (or host "not.provided"))
     (.put "mail.smtp.port" (or port "25"))
     (.put "mail.smtp.auth" (if user "true" "false"))
     (do-when sender (.put "mail.smtp.from" sender))
     (do-when user (.put "mail.smtp.user" user))
-    (do-when tls  (.put "mail.smtp.starttls.enable" "true"))))
+    (do-when tls  (.put "mail.smtp.starttls.enable" "true"))
+    (do-when ctimeout (.put "mail.smtp.connectiontimeout" ctimeout))
+    (do-when timeout  (.put "mail.smtp.timeout" timeout))))
 
 (defn hostname []
   (.getHostName (java.net.InetAddress/getLocalHost)))
