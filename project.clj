@@ -1,6 +1,6 @@
 (defproject gislik/postal "1.10.3"
-  :description  "Fork of https://github.com/drewr/postal/"
-  :url          "https://github.com/gislik/postal/"
+  :description  "Fork of https://github.com/drewr/postal"
+  :url          "https://github.com/gislik/postal"
   :repositories {"java.net" "http://download.java.net/maven/2"}
   :dependencies [[commons-codec "1.7"]
                  [javax.mail/mail "1.4.4"
